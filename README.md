@@ -5,6 +5,7 @@
 # 🔐 Secure Messaging System
 
 This project demonstrates a secure protocol over an insecure broadcast network. It leverages **RSA for key exchange** and **AES/DES for encrypting message payloads**, showcasing how cryptographic techniques can secure communication even when transmitted over a fully public channel.
+![alt text](image-7.png)
 
 ---
 
@@ -24,13 +25,13 @@ ALGO = "AES"  # Change to "DES" if desired
 ### 1. Open three separate terminals and run:
 ```bash
 # Run this in the 1st terminal
-python python secure_chat.py Alice
+python secure_chat.py Alice
 
 # Run this in the 2nd terminal  
-python python secure_chat.py Bob
+python secure_chat.py Bob
 
 # Run this in the 3rd terminal
-python python secure_chat.py Eavesdropper
+python secure_chat.py Eavesdropper
 ```
 
 ---
@@ -65,6 +66,7 @@ Eavesdropper> listen
 
 ```bash
 Alice> exchange Bob MySecretKey2025
+Bob> exchange Alice MySecretKey2025
 
 Alice> send Bob Encrypted Meeting at the library at 3 PM today
 Eavesdropper> listen
