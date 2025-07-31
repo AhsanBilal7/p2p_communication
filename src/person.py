@@ -4,6 +4,9 @@ from src.message import MessageClass
 from src.network import NetworkClass
 from src.logging import logger
 from src.fun_introduction import introduce
+
+ALGO = "DES" # DES For 56-bits |  "AES" # For 128-bits
+
 class PersonClass:
     """Represents an endpoint (honest or malicious) in the network."""
 
@@ -26,7 +29,7 @@ class PersonClass:
         encrypted_key = RSA_utils.encrypt_text(sym_key, other_person.public_key)
         msg = MessageClass(encrypted_key, self, other_person, is_encrypted=True)
         network.send_symmetric_key(msg)
-        self.secure_partners[other_person.name] = CipherClass(sym_key)
+        self.secure_partners[other_person.name] = CipherClass(sym_key, algo=ALGO)
 
     @introduce
     def rsa_encrypted_key(self, message):
@@ -37,7 +40,7 @@ class PersonClass:
 
         sender_name = message.sender.name
         key = RSA_utils.decrypt_text(message.data, self.__private_key)
-        self.secure_partners[sender_name] = CipherClass(key)
+        self.secure_partners[sender_name] = CipherClass(key, algo=ALGO)
         logger.info(
             "[%s] Stored new AES key for secure chat with %s.", self.name, sender_name
         )
